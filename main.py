@@ -4,6 +4,10 @@ import pandas as pd
 
 from tqdm import tqdm
 
+import torch
+
+from transformers import pipeline
+
 import sklearn
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
@@ -11,15 +15,21 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 import approaches
 from approaches.flesch_reading_ease import get_flesch_reading_ease
 from approaches.xlmr import get_formality_xlmr
+from approaches.llama import get_formality_llama
+
+from huggingface_hub import login
 
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-a", "--approach", type=str, help="Approach to formality detection: \"flesch\" or \"xlmr\"")
+parser.add_argument("-a", "--approach", type=str, help="Approach to formality detection: \"flesch\", \"xlmr\" or \"llama\"")
 parser.add_argument("-nr", "--nrows", type=int, help="Number of rows to evaluate (random sample)")
+parser.add_argument("-t", "--token", type=str, help="HuggingFace token")
 
 args = parser.parse_args()
+
 approach = args.approach
 nrows = 2000 if args.nrows is None else args.nrows
+hf_token = args.token
 
 
 
@@ -41,9 +51,21 @@ def main():
         recall = recall_score(df["formal"], df["pred"])
         f1 = f1_score(df["formal"], df["pred"])
         print("For XLM-Roberta-based classifier: Accuracy - {0}, Precision - {1}, Recall - {2}, F1 - {3}".format(accuracy, precision, recall, f1))
+    elif approach == "llama":
+        if hf_token is None:
+            raise Exception("HuggingFace token is invalid!")
+        else:
+            login(token=hf_token)
+        
+        tqdm.pandas()
 
-
+        df["pred"] = df["sentence"].progress_apply(lambda x: get_formality_llama(x, hf_token))
+        accuracy = accuracy_score(df["formal"], df["pred"])
+        precision = precision_score(df["formal"], df["pred"])
+        recall = recall_score(df["formal"], df["pred"])
+        f1 = f1_score(df["formal"], df["pred"])
+        print("For Llama-based classifier: Accuracy - {0}, Precision - {1}, Recall - {2}, F1 - {3}".format(accuracy, precision, recall, f1))
+    
 
 if __name__ == '__main__':
-    # execute only if run as the entry point into the program
     main()
