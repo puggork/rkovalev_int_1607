@@ -15,7 +15,6 @@ from approaches.xlmr import get_formality_xlmr
 parser = argparse.ArgumentParser()
 parser.add_argument("-a", "--approach", type=str, help="Approach to formality detection: \"flesch\", \"xlmr\" or \"llama\"")
 parser.add_argument("-nr", "--nrows", type=int, help="Number of rows to evaluate (random sample)")
-parser.add_argument("-t", "--token", type=str, help="HuggingFace token")
 
 args = parser.parse_args()
 
