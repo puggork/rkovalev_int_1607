@@ -24,7 +24,11 @@ nrows = 2000 if args.nrows is None else args.nrows
 
 def main():
     df = pd.read_csv("data/test.csv")
-    df = df.sample(n=nrows)
+
+    if nrows <= 0:
+        raise Exception("Invalid number of rows to evaluate. Enter a positive integer or None to evaluate the whole test set.")
+    else:
+        df = df.sample(n=nrows)
 
     if approach == "flesch":
         df["pred"] = df["sentence"].apply(lambda x: get_flesch_reading_ease(x))
