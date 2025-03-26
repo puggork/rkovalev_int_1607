@@ -20,8 +20,6 @@ args = parser.parse_args()
 
 approach = args.approach
 nrows = 2000 if args.nrows is None else args.nrows
-hf_token = args.token
-
 
 
 def main():

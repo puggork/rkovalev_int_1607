@@ -17,8 +17,12 @@ Test task for the internship project "Improving Writing Assistance at JetBrains 
 
 5. Run the main script, choosing one of the options:
 
-* -a / --approach - Choose the formality detection approach ("flesch" for Flesch Reading Ease score or "xlmr" for the XLM-Roberta-based classifier)
+* -a / --approach - Choose the formality detection approach ("flesch" for Flesch Reading Ease score or "xlmr" for the XLM-Roberta-based classifier);
 
-* -nr / --nrows - Number of rows to evaluate from the test set
+* -nr / --nrows - Number of rows to evaluate from the test set.
+
+For example:
+
+`python main.py -a xlmr -nr 25`
 
 6. To evaluate formality with a Llama model, run all the cells from the approaches/llama_formality.ipynb in Google Colab using the available GPU. Set the number of rows to an integer or None to evaluate the whole dataset.
