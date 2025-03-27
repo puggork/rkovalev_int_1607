@@ -28,4 +28,8 @@ For example:
 
 Check the prediction in the .csv reports in the _results_ folder.
 
-6. To evaluate formality with a Llama model, run all the cells from the [llama_formality notebook](approaches/get_formality_llama.ipynb) in Google Colab using the available GPU. Set the number of rows to an integer or None to evaluate the whole dataset. Make sure to use your HuggingFace access token when loading the dataset.
+6. To evaluate formality with a Llama model, run all the cells from the [llama_formality notebook](approaches/get_formality_llama.ipynb) in Google Colab using the available GPU. Set the number of rows to an integer or None to evaluate the whole dataset.
+
+* Make sure to use your HuggingFace access token when loading the dataset;
+
+* You need to be granted access to the model (fill out the form [here](https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct)).
