@@ -2,6 +2,8 @@
 
 Test assignment for the internship project "Improving Writing Assistance at JetBrains AI" (2025, 3.0).
 
+The report on the assignment is [in this file](1607_writing_assistance_report.pdf).
+
 ## Reproducing the results locally
 
 1. Clone the repository.
