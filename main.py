@@ -1,15 +1,18 @@
+import datetime
+from datetime import datetime
+
 import argparse
 
-import pandas as pd
-
 from tqdm import tqdm
-
 
 from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
 
+import pandas as pd
+
 from approaches.flesch_reading_ease import get_flesch_reading_ease
 from approaches.xlmr import get_formality_xlmr
+
 
 
 parser = argparse.ArgumentParser()
@@ -30,11 +33,20 @@ def main():
     else:
         df = df.sample(n=nrows)
 
+    print("Starting evaluating...")
     if approach == "flesch":
+        # Make prediction
         df["pred"] = df["sentence"].apply(lambda x: get_flesch_reading_ease(x))
+        # Evaluate against MAE and MSE
         mae = mean_absolute_error(df["avg_score"], df["pred"])
         mse = mean_squared_error(df["avg_score"], df["pred"])
         print("For Flesch Reading Ease: Mean Absolute Error - {0}, Mean Squared Error - {1}".format(mae, mse))
+
+        # Save texts and predictions to csv
+        download_time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        file_name = "flesch_classification_report_{0}.csv".format(download_time)
+        df.to_csv(file_name, sep=";", encoding="utf-8", index=False)
+
     elif approach == "xlmr":
         tqdm.pandas()
 
@@ -44,6 +56,11 @@ def main():
         recall = recall_score(df["formal"], df["pred"])
         f1 = f1_score(df["formal"], df["pred"])
         print("For XLM-Roberta-based classifier: Accuracy - {0}, Precision - {1}, Recall - {2}, F1 - {3}".format(accuracy, precision, recall, f1))
+
+        # Save texts and predictions to csv
+        download_time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+        file_name = "xlmr_classification_report_{0}.csv".format(download_time)
+        df.to_csv(file_name, sep=";", encoding="utf-8", index=False)
     
 
 if __name__ == '__main__':

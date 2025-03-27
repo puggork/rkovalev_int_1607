@@ -5,10 +5,13 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 tokenizer = AutoTokenizer.from_pretrained("s-nlp/xlmr_formality_classifier")
 model = AutoModelForSequenceClassification.from_pretrained("s-nlp/xlmr_formality_classifier")
 
-
 id2formality = {0: "formal", 1: "informal"}
 
 def get_formality_xlmr(txt):
+    """
+    txt: str
+        A sentence to evaluate
+    """
     encoding = tokenizer(
         txt,
         add_special_tokens=True,
