@@ -44,7 +44,7 @@ def main():
 
         # Save texts and predictions to csv
         download_time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-        file_name = "flesch_classification_report_{0}.csv".format(download_time)
+        file_name = "results/flesch_classification_report_{0}.csv".format(download_time)
         df.to_csv(file_name, sep=";", encoding="utf-8", index=False)
 
     elif approach == "xlmr":
@@ -59,7 +59,7 @@ def main():
 
         # Save texts and predictions to csv
         download_time = datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
-        file_name = "xlmr_classification_report_{0}.csv".format(download_time)
+        file_name = "results/xlmr_classification_report_{0}.csv".format(download_time)
         df.to_csv(file_name, sep=";", encoding="utf-8", index=False)
     
 

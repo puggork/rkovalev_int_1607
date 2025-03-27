@@ -1,6 +1,6 @@
 # rkovalev_int_1607
 
-Test task for the internship project "Improving Writing Assistance at JetBrains AI" (2025, 3.0).
+Test assignment for the internship project "Improving Writing Assistance at JetBrains AI" (2025, 3.0).
 
 ## Reproducing the results locally
 
@@ -26,4 +26,6 @@ For example:
 
 `python main.py -a xlmr -nr 25`
 
-6. To evaluate formality with a Llama model, run all the cells from the approaches/llama_formality.ipynb in Google Colab using the available GPU. Set the number of rows to an integer or None to evaluate the whole dataset.
+Check the prediction in the .csv reports in the _results_ folder.
+
+6. To evaluate formality with a Llama model, run all the cells from the approaches/llama_formality.ipynb in Google Colab using the available GPU. Set the number of rows to an integer or None to evaluate the whole dataset. Make sure to use your HuggingFace access token when loading the dataset.
